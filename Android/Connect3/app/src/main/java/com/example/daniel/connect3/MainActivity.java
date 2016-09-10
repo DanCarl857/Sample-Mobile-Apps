@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
     // 2 - represents neutral states.
     int[] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
+
+    // winning positions
+    int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
 
     public void dropIn(View view){
 
@@ -44,6 +49,29 @@ public class MainActivity extends AppCompatActivity {
 
             // simulate drop In effect.
             pic.animate().translationYBy(1000f).rotation(3600).setDuration(300);
+
+            for(int[] winningPosition : winningPositions){
+
+                if(gameState[winningPosition[0]] == gameState[winningPosition[1]] &&
+                        gameState[winningPosition[1]] == gameState[winningPosition[2]] &&
+                        gameState[winningPosition[0]] != 2) {
+
+                    String winner = "Red";
+
+                    if(gameState[winningPosition[0]] == 0){
+                        winner = "Yellow";
+                    }
+
+                    TextView winnerMessage = (TextView) findViewById(R.id.winnerMessage);
+
+                    // Set text message to display correct winner.
+                    winnerMessage.setText(winner + " has won!");
+
+                    // Make layout appear when user wins. I think a dialog could do here better.
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.playAgainLayout);
+                    layout.setVisibility(View.VISIBLE);
+                }
+            }
 
         } else {
             // Display toast to inform client that position is already filled.
