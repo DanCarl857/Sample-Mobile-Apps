@@ -1,5 +1,5 @@
 # Sample-Mobile-Apps
-Repository to hold the sample apps I build as I learn mobile development.
+Repository to hold the sample apps 
 
 ## Android Apps:
 * CurrencyConverter - Basic currency converter app from Dollars to Euros(exchange rate: .60)
