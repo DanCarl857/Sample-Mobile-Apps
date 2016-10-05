@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    textView.setText("0:00");
+                    textView.setText("0:30");
 
                     MediaPlayer mplayer = MediaPlayer.create(getApplicationContext(), R.raw.airhorn);
                     mplayer.start();
