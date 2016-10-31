@@ -3,7 +3,6 @@ package com.example.daniel.braintrainer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     int score = 0;
     int numberOfQuestions = 0;
 
-    public void generateQuestion(){
+    public void generateQuestion() {
 
         Random rand = new Random();
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void chooseAnswer(View view){
+    public void chooseAnswer(View view) {
 
         if(view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))){
 
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         pointsTextView.setText(Integer.toString(score) + " / " + Integer.toString(numberOfQuestions));
     }
 
-    public void start(View view){
+    public void start(View view) {
 
         startButton.setVisibility(View.INVISIBLE);
     }
@@ -104,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
         button2 = (Button)findViewById(R.id.button2);
         button3 = (Button)findViewById(R.id.button3);
 
-
         generateQuestion();
-
     }
 }
