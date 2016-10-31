@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,16 +18,52 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
     Button button2;
     Button button3;
+    Button button4;
     TextView resultsTextView;
     TextView pointsTextView;
     TextView sumTextView;
     TextView timerView;
+    RelativeLayout gameLayout;
 
     ArrayList<Integer>answers = new ArrayList<Integer>();
 
     int locationOfCorrectAnswer;
     int score = 0;
     int numberOfQuestions = 0;
+
+    public void playAgain(View view){
+
+        score = 0;
+        numberOfQuestions = 0;
+
+        timerView.setText("30s");
+        pointsTextView.setText("0/0");
+        resultsTextView.setText("");
+
+        // make button invisible
+        button4.setVisibility(View.INVISIBLE);
+
+        generateQuestion();
+
+        new CountDownTimer(30100, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                timerView.setText(String.valueOf(millisUntilFinished/1000) + "s");
+            }
+
+            @Override
+            public void onFinish() {
+
+                button4.setVisibility(View.VISIBLE);
+                timerView.setText("0s");
+                resultsTextView.setText("Your score: " + Integer.toString(score) + " / " + Integer.toString(numberOfQuestions));
+
+            }
+        }.start();
+
+    }
 
     public void generateQuestion() {
 
@@ -91,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void start(View view) {
 
         startButton.setVisibility(View.INVISIBLE);
+        gameLayout.setVisibility(View.VISIBLE);
     }
 
 
@@ -109,24 +147,9 @@ public class MainActivity extends AppCompatActivity {
         button1 = (Button)findViewById(R.id.button1);
         button2 = (Button)findViewById(R.id.button2);
         button3 = (Button)findViewById(R.id.button3);
+        button4 = (Button)findViewById(R.id.playAgainButton);
+        gameLayout = (RelativeLayout)findViewById(R.id.gameLayout);
 
-        generateQuestion();
-
-        new CountDownTimer(30100, 1000){
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-                timerView.setText(String.valueOf(millisUntilFinished/1000) + "s");
-            }
-
-            @Override
-            public void onFinish() {
-
-                timerView.setText("0s");
-                resultsTextView.setText("Your score: " + Integer.toString(score) + " / " + Integer.toString(numberOfQuestions));
-
-            }
-        }.start();
+        playAgain(findViewById(R.id.playAgainButton));
     }
 }
